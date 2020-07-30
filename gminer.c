@@ -215,7 +215,7 @@ void main_loop()
 
 int main(int argc, char* args[])
 {
-  printf("Running on 1 thread..\n");
+  printf("Running on 1 thread, if a key is mined it will be listed below..\n");
 
   nt = time(0);
   emscripten_set_main_loop(main_loop, 1000, 1);
