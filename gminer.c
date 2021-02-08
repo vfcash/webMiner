@@ -13,8 +13,6 @@
 
 #define uint uint32_t
 
-uint8_t rpriv[ECC_BYTES];
-uint8_t rpub[ECC_BYTES+1];
 
 double toDB(const uint64_t b)
 {
@@ -172,29 +170,11 @@ void mine()
     len = 256;
     b58enc(bpub, &len, pub, ECC_BYTES+1);
 
-    char brpriv[256];
-    memset(brpriv, 0, sizeof(brpriv));
-    len = 256;
-    b58enc(brpriv, &len, rpriv, ECC_BYTES);
-
-    char brpub[256];
-    memset(brpub, 0, sizeof(brpub));
-    len = 256;
-    b58enc(brpub, &len, rpub, ECC_BYTES+1);
-
     const double diff = subDiff(pub);
     const double fr = toDB(r);
 
     //Log
     printf("Private Key: %s (%.3f DIFF) (%.3f VFC)\n\n", bpriv, diff, fr);
-    
-    //Save to file
-    FILE* f = fopen("minted.txt", "a");
-    if(f != NULL)
-    {
-      fprintf(f, "%s / %.3f / %.3f\n", bpriv, diff, fr);
-      fclose(f);
-    }
   }
 }
 
